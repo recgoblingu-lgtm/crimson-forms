@@ -2,9 +2,6 @@
   "name": "Quick feedback",
   "description": "Share a thought or suggestion with the Crimson team.",
   "title": "[Crimson] Quick feedback",
-  "labels": [
-    "crimson-submission"
-  ],
   "body": [
     {
       "type": "textarea",

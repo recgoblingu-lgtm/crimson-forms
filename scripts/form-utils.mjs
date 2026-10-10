@@ -54,7 +54,6 @@ export function makeIssueTemplate(form) {
     name: form.title.slice(0, 64),
     description: form.description.slice(0, 200),
     title: `[Crimson] ${form.title}`.slice(0, 200),
-    labels: ['crimson-submission'],
     body
   };
 }

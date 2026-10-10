@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   forward:
-    if: contains(github.event.issue.labels.*.name, 'crimson-submission')
+    if: startsWith(github.event.issue.title, '[Crimson] ')
     runs-on: ubuntu-latest
     steps:
       - name: Forward to configured webhook or notify repository owner
