@@ -1,0 +1,38 @@
+{
+  "name": "Quick feedback",
+  "description": "Share a thought or suggestion with the Crimson team.",
+  "title": "[Crimson] Quick feedback",
+  "labels": [
+    "crimson-submission"
+  ],
+  "body": [
+    {
+      "type": "textarea",
+      "id": "message",
+      "attributes": {
+        "label": "What would you like us to know?",
+        "description": "Please do not include private or sensitive information."
+      },
+      "validations": {
+        "required": true
+      }
+    },
+    {
+      "type": "dropdown",
+      "id": "topic",
+      "attributes": {
+        "label": "What is this about?",
+        "options": [
+          "A form",
+          "A feature idea",
+          "Something else"
+        ],
+        "multiple": false,
+        "default": 0
+      },
+      "validations": {
+        "required": true
+      }
+    }
+  ]
+}

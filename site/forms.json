@@ -1,0 +1,9 @@
+[
+  {
+    "slug": "quick-feedback",
+    "title": "Quick feedback",
+    "description": "Share a thought or suggestion with the Crimson team.",
+    "questionCount": 2,
+    "template": "crimson-quick-feedback.yml"
+  }
+]

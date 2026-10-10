@@ -1,0 +1,58 @@
+name: Forward Crimson responses
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  forward:
+    if: contains(github.event.issue.labels.*.name, 'crimson-submission')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Forward to configured webhook or notify repository owner
+        uses: actions/github-script@v7
+        env:
+          CRIMSON_WEBHOOK_URL: ${{ secrets.CRIMSON_WEBHOOK_URL }}
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const webhook = process.env.CRIMSON_WEBHOOK_URL;
+            const payload = {
+              event: 'crimson.form_submission',
+              repository: context.repo.owner + '/' + context.repo.repo,
+              issue_number: issue.number,
+              title: issue.title,
+              answers_markdown: issue.body || '',
+              issue_url: issue.html_url,
+              submitted_at: issue.created_at,
+              submitter: issue.user.login
+            };
+            if (webhook) {
+              let response;
+              try {
+                response = await fetch(webhook, {
+                  method: 'POST',
+                  headers: { 'content-type': 'application/json' },
+                  body: JSON.stringify(payload)
+                });
+              } catch (error) {
+                core.setFailed('Webhook request failed. Check the repository secret and webhook availability.');
+                return;
+              }
+              if (!response.ok) {
+                core.setFailed(`Webhook returned HTTP ${response.status}.`);
+                return;
+              }
+              core.info('Crimson response forwarded to configured webhook.');
+            } else {
+              const owner = context.repo.owner;
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: issue.number,
+                body: `@${owner} A new Crimson form response was submitted. GitHub notification settings determine whether this becomes an email.`
+              });
+              core.info('No webhook secret configured; notified the repository owner through GitHub.');
+            }

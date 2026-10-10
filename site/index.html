@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#a71930">
+  <meta name="description" content="Crimson — clean, shareable forms powered by GitHub.">
+  <title>Crimson Forms</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Crimson home"><span class="brand-mark">C</span><span>Crimson</span></a>
+    <nav><a href="builder.html">Form studio</a><a href="https://github.com/recgoblingu-lgtm/crimson-forms" target="_blank" rel="noreferrer">GitHub repo ↗</a></nav>
+  </header>
+  <main class="shell">
+    <section class="hero">
+      <p class="eyebrow">GITHUB-NATIVE FORMS</p>
+      <h1>Make it clear.<br><span>Make it Crimson.</span></h1>
+      <p class="hero-copy">A tidy home for forms built from saved definitions. Each published form opens as a GitHub form, and submissions are tracked as issues.</p>
+      <a class="button button-dark" href="builder.html">Create a form <span aria-hidden="true">→</span></a>
+      <div class="hero-note"><span class="live-dot"></span> Forms are published from this repository</div>
+    </section>
+    <section class="forms-section" aria-labelledby="forms-title">
+      <div class="section-head"><div><p class="eyebrow">THE COLLECTION</p><h2 id="forms-title">Published forms</h2></div><span id="form-count" class="count-pill">Loading…</span></div>
+      <div id="form-list" class="form-list" aria-live="polite"></div>
+      <p id="empty-state" class="empty-state" hidden>No forms yet. Open the Form Studio to draft one, then publish it through the repository’s Actions workflow.</p>
+    </section>
+    <aside class="privacy-note"><strong>Before submitting:</strong> answers are stored as public GitHub issues in this repository. Don’t enter passwords, payment details, or sensitive personal information.</aside>
+  </main>
+  <footer><span>Crimson Forms</span><span>Powered by GitHub Pages + Actions</span></footer>
+  <script>
+    const owner = 'recgoblingu-lgtm';
+    const repo = 'crimson-forms';
+    fetch('./forms.json').then(r => { if (!r.ok) throw new Error('No forms index'); return r.json(); }).then(forms => {
+      const list = document.querySelector('#form-list');
+      document.querySelector('#form-count').textContent = `${forms.length} ${forms.length === 1 ? 'form' : 'forms'}`;
+      document.querySelector('#empty-state').hidden = forms.length !== 0;
+      for (const form of forms) {
+        const card = document.createElement('article'); card.className = 'form-card';
+        const label = document.createElement('span'); label.className = 'form-tag'; label.textContent = 'FORM';
+        const title = document.createElement('h3'); title.textContent = form.title;
+        const desc = document.createElement('p'); desc.textContent = form.description;
+        const meta = document.createElement('div'); meta.className = 'card-meta'; meta.textContent = `${form.questionCount} ${form.questionCount === 1 ? 'question' : 'questions'}`;
+        const link = document.createElement('a'); link.className = 'text-link'; link.href = `https://github.com/${owner}/${repo}/issues/new?template=${encodeURIComponent(form.template)}`; link.target = '_blank'; link.rel = 'noreferrer'; link.textContent = 'Open form ↗';
+        card.append(label, title, desc, meta, link); list.append(card);
+      }
+    }).catch(() => { document.querySelector('#form-count').textContent = '0 forms'; document.querySelector('#empty-state').hidden = false; });
+  </script>
+</body>
+</html>

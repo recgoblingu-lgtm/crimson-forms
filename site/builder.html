@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#a71930">
+  <title>Form Studio · Crimson</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="./"><span class="brand-mark">C</span><span>Crimson</span></a><nav><a href="./">Published forms</a><a href="https://github.com/recgoblingu-lgtm/crimson-forms/actions/workflows/publish-forms.yml" target="_blank" rel="noreferrer">Save &amp; publish ↗</a></nav></header>
+  <main class="shell studio-shell">
+    <section class="studio-intro"><p class="eyebrow">FORM STUDIO</p><h1>Build your next form.</h1><p>Draft the form here, copy its definition, then save it through GitHub Actions. Only people with write access to this repository can save and publish forms.</p></section>
+    <div class="editor-layout">
+      <section class="editor-panel">
+        <label class="field-label" for="slug">Form URL name <span>lowercase, hyphens</span></label>
+        <input id="slug" class="text-input" maxlength="50" value="quick-feedback" autocomplete="off" placeholder="quick-feedback">
+        <label class="field-label" for="title">Form title</label>
+        <input id="title" class="text-input" maxlength="80" value="Quick feedback" placeholder="Tell people what this form is for">
+        <label class="field-label" for="description">Short description</label>
+        <textarea id="description" class="text-input" maxlength="200" rows="2" placeholder="A short explanation shown with the form.">Share a thought or suggestion with the Crimson team.</textarea>
+        <div class="question-head"><div><p class="eyebrow">QUESTIONS</p><h2>What do you need to ask?</h2></div><button id="add-question" class="button button-light" type="button">+ Add question</button></div>
+        <div id="questions"></div>
+        <div class="builder-actions"><button id="generate" class="button button-dark" type="button">Prepare definition <span aria-hidden="true">→</span></button><a class="text-link" href="https://github.com/recgoblingu-lgtm/crimson-forms/actions/workflows/publish-forms.yml" target="_blank" rel="noreferrer">Open save workflow ↗</a></div>
+        <p class="workflow-help">In the workflow, choose <strong>Run workflow</strong> and paste the copied JSON into <strong>form_json</strong>. GitHub checks your repository permission, saves the definition, generates the respondent form, and republishes Crimson.</p>
+        <div id="result" class="result-box" hidden><div class="result-top"><strong>Ready to save</strong><button id="copy-json" class="small-button" type="button">Copy JSON</button></div><textarea id="json-output" rows="12" readonly aria-label="Form definition JSON"></textarea><p id="status-message" role="status"></p></div>
+      </section>
+      <aside class="preview-panel"><p class="eyebrow">LIVE PREVIEW</p><h2 id="preview-title">Quick feedback</h2><p id="preview-description">Share a thought or suggestion with the Crimson team.</p><div id="preview-questions"></div><div class="preview-submit">Submit form <span>→</span></div><p class="preview-footnote">Responses are stored as public GitHub issues.</p></aside>
+    </div>
+    <aside class="privacy-note"><strong>GitHub-only access control:</strong> this draft page is public and does not contain a password. The actual save/publish step is protected by GitHub repository write permissions. Form responses are public issues; don’t request confidential or sensitive data.</aside>
+  </main>
+  <footer><span>Crimson Forms</span><span>Draft locally · Save through GitHub Actions</span></footer>
+  <script src="builder.js"></script>
+</body>
+</html>

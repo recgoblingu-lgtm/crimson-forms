@@ -1,0 +1,21 @@
+{
+  "slug": "quick-feedback",
+  "title": "Quick feedback",
+  "description": "Share a thought or suggestion with the Crimson team.",
+  "questions": [
+    {
+      "id": "message",
+      "type": "textarea",
+      "label": "What would you like us to know?",
+      "description": "Please do not include private or sensitive information.",
+      "required": true
+    },
+    {
+      "id": "topic",
+      "type": "dropdown",
+      "label": "What is this about?",
+      "required": true,
+      "options": ["A form", "A feature idea", "Something else"]
+    }
+  ]
+}
